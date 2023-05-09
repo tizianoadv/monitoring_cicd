@@ -1,45 +1,52 @@
 from flask import Flask, request, jsonify, render_template
 import redis, os
 
-app = Flask(__name__)
+class MonitoringApp:
+    def __init__(self):
+        self.app = Flask(__name__)
 
-# Connect to Redis database
-redis_host = os.getenv("REDIS_HOST")
-redis_port = os.getenv("REDIS_PORT")
-redis_password = os.getenv("REDIS_PASSWORD")
-redis_db = os.getenv("REDIS_DB")
+        # Connect to Redis database
+        redis_host = os.getenv("REDIS_HOST")
+        redis_port = os.getenv("REDIS_PORT")
+        redis_password = os.getenv("REDIS_PASSWORD")
+        redis_db = os.getenv("REDIS_DB")
 
-try:
-    redis_conn = redis.Redis(host=redis_host, port=redis_port, password=redis_password, db=redis_db)
-except redis.exceptions.ConnectionError as e:
-    print("Redis connection error:", e)
+        try:
+            self.redis_conn = redis.Redis(host=redis_host, port=redis_port, password=redis_password, db=redis_db)
+        except redis.exceptions.ConnectionError as e:
+            print("Redis connection error:", e)
 
-@app.route('/flush', methods=['GET'])
-def flush_db():
-    redis_conn.flushdb()
-    return jsonify({'message': 'DB flush successfully.'}), 200
+        self.app.route('/flush', methods=['GET'])(self.flush_db)
+        self.app.route('/data', methods=['POST'])(self.post_data)
+        self.app.route('/data', methods=['GET'])(self.get_data)
 
-# POST endpoint to receive data and store it to Redis database
-@app.route('/data', methods=['POST'])
-def post_data():
-    payload = request.json
-    data = {
-        'temperature': str(payload['temperature']),
-        'humidity': str(payload['humidity']),
-        'luminosity': str(payload['luminosity']),
-        'timestamp': str(payload['timestamp'])
-    }
-    redis_conn.hmset(data['timestamp'], data)
-    return jsonify({'message': 'Data stored successfully.'}), 200   
+    def flush_db(self):
+        print("Flushing database")
+        self.redis_conn.flushdb()
+        print("Database flushed")
+        return jsonify({'message': 'DB flush successfully.'}), 200
 
-# GET endpoint to fetch data from Redis database and transmit it to user's browser
-@app.route('/data', methods=['GET'])
-def get_data():
-    data = {}
-    for key in redis_conn.scan_iter():
-        key_str = key.decode()
-        data[key_str] = {k.decode(): v.decode() for k, v in redis_conn.hgetall(key).items()}
-    return render_template('index.html', data=data)
+    def post_data(self):
+        payload = request.json
+        data = {
+            'temperature': str(payload['temperature']),
+            'humidity': str(payload['humidity']),
+            'luminosity': str(payload['luminosity']),
+            'timestamp': str(payload['timestamp'])
+        }
+        self.redis_conn.hmset(data['timestamp'], data)
+        return jsonify({'message': 'Data stored successfully.'}), 200   
+
+    def get_data(self):
+        data = {}
+        for key in self.redis_conn.scan_iter():
+            key_str = key.decode()
+            data[key_str] = {k.decode(): v.decode() for k, v in self.redis_conn.hgetall(key).items()}
+        return render_template('index.html', data=data)
+
+    def run(self):
+        self.app.run(debug=True, host='0.0.0.0', port=5000)
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    monitoring_app = MonitoringApp()
+    monitoring_app.run()
