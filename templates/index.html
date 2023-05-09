@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>IoT Data</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+  </head>
+  <body>
+    <div class="container">
+      <h1>Environmental data dashboard</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Timestamp</th>
+            <th>Temperature</th>
+            <th>Luminosity</th>
+            <th>Humidity</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for timestamp, data in data.items() %}
+          <tr>
+            <td>{{ timestamp }}</td>
+            <td>{{ data.get('temperature', '') }}</td>
+            <td>{{ data.get('luminosity', '') }}</td>
+            <td>{{ data.get('humidity', '') }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

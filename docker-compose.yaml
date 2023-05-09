@@ -1,0 +1,20 @@
+version: '3'
+services:
+  app:
+    image: tizianoadv/monitoring:latest
+    ports:
+      - "5000:5000"
+    environment:
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: myredispassword
+      REDIS_DB: 0
+    depends_on:
+      - redis
+  redis:
+    image: redis
+    command: redis-server --requirepass myredispassword
+    environment:
+      REDIS_PASSWORD: myredispassword
+    ports:
+      - "6379:6379"
