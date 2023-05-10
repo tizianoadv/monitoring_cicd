@@ -10,19 +10,21 @@
       <table>
         <thead>
           <tr>
-            <th>Timestamp</th>
+            <th>ID</th>
             <th>Temperature</th>
             <th>Luminosity</th>
             <th>Humidity</th>
+            <th>Timestamp</th>
           </tr>
         </thead>
         <tbody>
-          {% for timestamp, data in data.items() %}
+          {% for key, data in data.items() %}
           <tr>
-            <td>{{ timestamp }}</td>
+            <td>{{ key }}</td>
             <td>{{ data.get('temperature', '') }}</td>
             <td>{{ data.get('luminosity', '') }}</td>
             <td>{{ data.get('humidity', '') }}</td>
+            <td>{{ data.get('timestamp', '') }}</td>
           </tr>
           {% endfor %}
         </tbody>
