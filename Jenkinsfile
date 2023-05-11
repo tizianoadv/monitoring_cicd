@@ -1,8 +1,10 @@
-node{
-    stage('Clone'){
-        git "https://github.com/tizianoadv/monitoring_cicd.git"
-    }
-    stage('Test'){
-        echo "test jenkinsfile"
+pipeline {
+   agent any
+   stages {
+        stage('Checkout') {
+            steps {
+                echo "Hello"
+            }
+        }     
     }
 }
