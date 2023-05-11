@@ -1,8 +1,6 @@
 version: '3'
 services:
   app:
-    # build: app/.
-    # image: monitoring:latest
     image: tizianoadv/monitoring:latest
     ports:
       - "5000:5000"
@@ -20,3 +18,8 @@ services:
       REDIS_PASSWORD: myredispassword
     ports:
       - "6379:6379"
+  client:
+    build: client/.
+    image: tizianoadv/client:latest
+    depends_on:
+      - app

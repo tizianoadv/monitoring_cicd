@@ -12,4 +12,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY client.py .
 
 # Run the serverless function when the container launches
-CMD ["python", "client.py"]
+CMD ["python3", "client.py"]
