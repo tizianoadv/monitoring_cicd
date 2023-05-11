@@ -3,7 +3,7 @@ pipeline {
    stages {
         stage('Checkout') {
             steps {
-                echo "Hello"
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/tizianoadv/monitoring_cicd.git']])
             }
         }     
     }
