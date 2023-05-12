@@ -14,4 +14,6 @@ docker push tizianoadv/monitoring:latest
 docker push tizianoadv/client:latest
 
 # Remove all images
+docker rmi tizianoadv/monitoring:latest
+docker rmi tizianoadv/client:latest
 docker rmi $(docker images -qa)
