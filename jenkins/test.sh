@@ -13,3 +13,9 @@ pip3 install -r jenkins/requirements_pytest.txt
 
 # Run the test
 python3 -m pytest -vs
+
+# deactivate virtual environment
+deactivate
+
+# Removes Virtual environment
+rm -rf venvtest
