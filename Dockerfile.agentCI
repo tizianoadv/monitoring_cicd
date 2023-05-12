@@ -1,4 +1,0 @@
-FROM docker:latest
-
-WORKDIR /agent
-
