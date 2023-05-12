@@ -6,29 +6,20 @@ pipeline {
                 checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/tizianoadv/monitoring_cicd.git']])
             }
         }
-        // stage('Build') {
+        stage('Build') {
+            steps {
+                sh 'bash jenkins/build_run.sh'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'bash jenkins/test.sh' 
+            }
+        } 
+        // stage('Push') {
         //     steps {
-        //         docker build -t monitoring:latest app/.
-
-        //     }
-        // }
-        // stage('Test') {
-        //     steps {
-        //         sh'python3 -m venv venv-pytest'
-        //         source env/bin/activate
-        //         pip3 install -r app/requirements.txt
-        //         pip3 install bs4 requests pytz
+        //         sh 'bash jenkins/test.sh' 
         //     }
         // }   
-        // stage('Build') {
-        //     steps {
-        //         checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/tizianoadv/monitoring_cicd.git']])
-        //     }
-        // }
-        // stage('Run') {
-        //     steps {
-        //         checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/tizianoadv/monitoring_cicd.git']])
-        //     }
-        // }
     }
 }
