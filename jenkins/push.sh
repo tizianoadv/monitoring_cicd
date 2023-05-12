@@ -12,3 +12,6 @@ docker tag client:latest tizianoadv/client:latest
 # Push all images to Docker Hub
 docker push tizianoadv/monitoring:latest
 docker push tizianoadv/client:latest
+
+# Remove all images
+docker rmi $(docker images -qa)
