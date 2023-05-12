@@ -16,10 +16,10 @@ pipeline {
                 sh 'bash jenkins/test.sh' 
             }
         } 
-        // stage('Push') {
-        //     steps {
-        //         sh 'bash jenkins/test.sh' 
-        //     }
-        // }   
+        stage('Push') {
+            steps {
+                sh 'bash jenkins/push.sh' 
+            }
+        }   
     }
 }
