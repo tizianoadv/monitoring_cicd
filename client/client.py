@@ -5,7 +5,7 @@ import time
 import random
 import pytz
 
-APP_NAME = "monitoring_cicd-app-1"
+APP_NAME = "monitoring-app"
 APP_ENDPOINT= f"http://{APP_NAME}:5000/data"
 TIMEZONE = pytz.timezone('Europe/Paris')
 
