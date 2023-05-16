@@ -11,7 +11,7 @@ pipeline {
                 sh 'bash jenkins/build_run.sh'
             }
         }
-        stage('Test') {
+        stage('Unit Test') {
             steps {
                 sh 'bash jenkins/test.sh' 
             }
