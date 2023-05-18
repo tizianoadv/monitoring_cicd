@@ -1,0 +1,27 @@
+version: '3'
+services:
+  app:
+    image: {{ app_monitoring_image }}
+    container_name: monitoring-app
+    ports:
+      - "5000:5000"
+    environment:
+      REDIS_HOST: {{ app_redis_host }}
+      REDIS_PORT: {{ app_redis_port }}
+      REDIS_PASSWORD: {{ app_redis_password }}
+      REDIS_DB: {{ app_redis_database }}
+    depends_on:
+      - redis
+  redis:
+    image: redis
+    container_name: redis
+    command: redis-server --requirepass {{ app_redis_password }}
+    environment:
+      REDIS_PASSWORD: {{ app_redis_password }}
+    ports:
+      - "6379:6379"
+  client:
+    image: {{ app_monitoring_client }}
+    container_name: monitoring-client
+    depends_on:
+      - app

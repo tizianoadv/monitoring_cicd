@@ -1,0 +1,4 @@
+- src: https://github.com/ultransible/docker.git
+  name: docker
+  version: master
+  scm: git
