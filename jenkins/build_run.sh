@@ -9,7 +9,7 @@ if ! docker info > /dev/null 2>&1; then
 fi
 
 # Start Docker Compose services
-docker compose up --build -f jenkins/docker-compose.yaml -d
+docker compose -f jenkins/docker-compose.yaml --build -d up 
 
 sleep 1
 
