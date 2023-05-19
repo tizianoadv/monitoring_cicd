@@ -3,7 +3,7 @@
 # *** STEP PUSH ***
 
 # Stop all containers 
-docker compose down
+docker compose -f jenkins/docker-compose.yaml down
 
 # Tag Monitoring images
 docker tag monitoring:latest tizianoadv/monitoring:latest
