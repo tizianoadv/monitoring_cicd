@@ -21,9 +21,11 @@ pipeline {
                 sh 'bash jenkins/push.sh' 
             }
         }   
-        stage('Hello World'){
+        stage('Deploy'){
             steps {
-                sh 'echo This is deploy'
+                ansiblePlaybook colorized: true, 
+                inventory: 'ansible/inventory.yaml', 
+                playbook: 'ansible/playbook.yaml'
             }
         }
     }
