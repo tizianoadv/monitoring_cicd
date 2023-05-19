@@ -3,7 +3,11 @@ pipeline {
    stages {
         stage('Checkout') {
             steps {
-                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/tizianoadv/monitoring_cicd.git']])
+                checkout scmGit(
+                branches: [[name: '*/main']], 
+                extensions: [], 
+                userRemoteConfigs: [[url: 'https://github.com/tizianoadv/monitoring_cicd.git']]
+                )
             }
         }
         stage('Build') {
@@ -23,7 +27,10 @@ pipeline {
         }   
         stage('Deploy'){
             steps {
-                ansiblePlaybook colorized: true, credentialsId: 'sshDevServer', inventory: 'ansible/inventory.yaml', playbook: 'ansible/playbook.yaml'
+                ansiblePlaybook colorized: true, 
+                credentialsId: 'sshDevServer', 
+                inventory: 'ansible/inventory.yaml', 
+                playbook: 'ansible/playbook.yaml'
             }
         }
     }
