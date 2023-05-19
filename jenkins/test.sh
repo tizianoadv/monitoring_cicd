@@ -12,7 +12,7 @@ source venvtest/bin/activate
 pip3 install -r jenkins/requirements_pytest.txt
 
 # Run the test
-python3 -m pytest -vs
+python3 -m pytest -vs app/test_app.py
 
 # deactivate virtual environment
 deactivate
