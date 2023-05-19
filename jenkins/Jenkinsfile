@@ -1,5 +1,5 @@
 pipeline {
-   agent { label 'agentCI' }
+   agent { label 'JenkinsAgent' }
    stages {
         stage('Checkout') {
             steps {
@@ -21,5 +21,10 @@ pipeline {
                 sh 'bash jenkins/push.sh' 
             }
         }   
+        stage('Hello World'){
+            steps {
+                sh 'echo This is deploy'
+            }
+        }
     }
 }
