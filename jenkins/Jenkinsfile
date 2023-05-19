@@ -23,9 +23,7 @@ pipeline {
         }   
         stage('Deploy'){
             steps {
-                ansiblePlaybook colorized: true, 
-                inventory: 'ansible/inventory.yaml', 
-                playbook: 'ansible/playbook.yaml'
+                ansiblePlaybook colorized: true, credentialsId: 'devServer', inventory: 'ansible/inventory.yaml', playbook: 'ansible/playbook.yaml'
             }
         }
     }
