@@ -6,7 +6,7 @@ import random
 import pytz
 
 APP_NAME = "monitoring-app"
-APP_ENDPOINT= f"http://{APP_NAME}:5000/data"
+APP_ENDPOINT= f"http://{APP_NAME}:5000/"
 TIMEZONE = pytz.timezone('Europe/Paris')
 
 while True:
