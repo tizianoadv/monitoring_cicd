@@ -20,11 +20,11 @@
         <tbody>
           {% for key, data in data.items() %}
           <tr>
-            <td>{{ key }}</td>
-            <td>{{ data.get('temperature', '') }}</td>
-            <td>{{ data.get('luminosity', '') }}</td>
-            <td>{{ data.get('humidity', '') }}</td>
-            <td>{{ data.get('timestamp', '') }}</td>
+            <td id="id">{{ key }}</td>
+            <td id="temperature">{{ data.get('temperature', '') }}</td>
+            <td id="luminosity">{{ data.get('luminosity', '') }}</td>
+            <td id="humidity">{{ data.get('humidity', '') }}</td>
+            <td id="timestamp">{{ data.get('timestamp', '') }}</td>
           </tr>
           {% endfor %}
         </tbody>
