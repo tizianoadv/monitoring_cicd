@@ -24,7 +24,7 @@
             <td id="temperature">{{ data.get('temperature', '') }}</td>
             <td id="luminosity">{{ data.get('luminosity', '') }}</td>
             <td id="humidity">{{ data.get('humidity', '') }}</td>
-            <td id="timestamp_{{ key }}">{{ data.get('timestamp', '') }}</td>
+            <td id="timestamp_" + {{ key }}>{{ data.get('timestamp', '') }}</td>
           </tr>
           {% endfor %}
         </tbody>
