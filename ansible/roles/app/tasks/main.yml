@@ -15,7 +15,7 @@
   shell: "docker login -u {{ app_registry_user }} -p {{ app_registry_password }}"
 
 - name: Remove docker images if found any
-  shell: "tags=$(sudo docker images -qa); [ -z \"$tags\" ] && docker rmi $tags || echo "[INFO] No Docker images found - No needs to execute the remove command"
+  shell: "tags=$(sudo docker images -qa); [ -z \"$tags\" ] && docker rmi $tags || echo "No Docker images found - No needs to execute the remove command"
 
 - name: Shutdown docker compose
   shell: docker compose -f /home/jenkins/app/docker-compose.yaml down
