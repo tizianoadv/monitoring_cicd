@@ -25,7 +25,7 @@ pipeline {
                 sh 'bash jenkins/push.sh' 
             }
         }   
-        stage('Deploy - Dev'){
+        stage('Deploy Dev'){
             steps {
                 ansiblePlaybook colorized: true, 
                 credentialsId: 'sshDevServer', 
@@ -41,10 +41,10 @@ pipeline {
                 perfReport 'jmeter/performance/results.jtl'
             }
         }
-        stage('Deploy - Prod'){
+        stage('Deploy Prod'){
             steps {
                 ansiblePlaybook colorized: true, 
-                credentialsId: 'sshDevServer', 
+                credentialsId: 'sshProdServer', 
                 inventory: 'ansible/inventory.yaml', 
                 playbook: 'ansible/playbook_prod.yaml'
             }
