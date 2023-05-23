@@ -1,4 +1,5 @@
 app_monitoring_image: "tizianoadv/monitoring:latest"
+app_monitoring_client: "tizianoadv/client:latest"
 
 app_redis_host: "redis"
 app_redis_port: "6379"

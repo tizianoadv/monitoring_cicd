@@ -1,6 +1,13 @@
-- name: playbook 1
+- name: playbook for dev environment
   hosts: dev
   become: yes
   roles:
   - docker
   - app
+
+# - name: playbook for prod environment
+#   hosts: prod
+#   become: yes
+#   roles:
+#   - docker
+#   - app_with_client

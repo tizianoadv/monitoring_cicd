@@ -1,0 +1,33 @@
+- name: Create app directory
+  file:
+    dest: /home/jenkins/app/
+    mode: 0775
+    recurse: yes
+    state: directory
+
+- name: Insert docker-compose file
+  template:
+    src: docker-compose.yaml.j2
+    dest: /home/jenkins/app/docker-compose.yaml
+    mode: 0755
+
+- name: Login to registry
+  shell: "docker login -u {{ app_registry_user }} -p {{ app_registry_password }}"
+
+- name: Remove docker images if found any
+  shell: "tags=$(docker images -qa); [ -z \"$tags\" ] && docker rmi $tags || echo \"No Docker images found - No needs to execute the remove command\""
+
+- name: Shutdown docker compose
+  shell: docker compose -f /home/jenkins/app/docker-compose.yaml down
+
+- name: Run docker compose
+  shell: docker compose -f /home/jenkins/app/docker-compose.yaml up -d
+
+- name: Wait for instance
+  uri:
+    url: "http://127.0.0.1:5000/"
+    status_code: 200
+  register: result
+  until: result.status == 200
+  retries: 120
+  delay: 1
