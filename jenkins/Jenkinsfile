@@ -34,10 +34,12 @@ pipeline {
             }
         }
         stage('JMeter Test'){
-            sh 'mkdir jmeter/performance'
-            sh '/usr/bin/jmeter/apache-jmeter-5.5/bin/jmeter -n -t jmeter/FirstTestJmeter.jmx -l jmeter/performance/results.jtl'
-            sh 'cat jmeter/performance/results.jtl'
-            perfReport 'results.jtl'
+            steps {
+                sh 'mkdir jmeter/performance'
+                sh '/usr/bin/jmeter/apache-jmeter-5.5/bin/jmeter -n -t jmeter/FirstTestJmeter.jmx -l jmeter/performance/results.jtl'
+                sh 'cat jmeter/performance/results.jtl'
+                perfReport 'results.jtl'
+            }
         }
     }
 }
