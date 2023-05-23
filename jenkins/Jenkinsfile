@@ -25,20 +25,28 @@ pipeline {
                 sh 'bash jenkins/push.sh' 
             }
         }   
-        stage('Deploy'){
+        stage('Deploy - Dev'){
             steps {
                 ansiblePlaybook colorized: true, 
                 credentialsId: 'sshDevServer', 
                 inventory: 'ansible/inventory.yaml', 
-                playbook: 'ansible/playbook.yaml'
+                playbook: 'ansible/playbook_dev.yaml'
             }
         }
-        stage('JMeter Test'){
+        stage('Performance Test'){
             steps {
                 sh 'mkdir -p jmeter/performance'
                 sh '/usr/bin/jmeter/apache-jmeter-5.5/bin/jmeter -n -t jmeter/UserAdmin.jmx -l jmeter/performance/results.jtl'
                 sh 'cat jmeter/performance/results.jtl'
                 perfReport 'jmeter/performance/results.jtl'
+            }
+        }
+        stage('Deploy - Prod'){
+            steps {
+                ansiblePlaybook colorized: true, 
+                credentialsId: 'sshDevServer', 
+                inventory: 'ansible/inventory.yaml', 
+                playbook: 'ansible/playbook_prod.yaml'
             }
         }
     }

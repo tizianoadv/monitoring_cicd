@@ -1,0 +1,6 @@
+- name: playbook for dev environment
+  hosts: dev
+  become: yes
+  roles:
+  - docker
+  - app

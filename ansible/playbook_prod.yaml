@@ -1,0 +1,6 @@
+- name: playbook for prod environment
+  hosts: prod
+  become: yes
+  roles:
+  - docker
+  - app_with_client
