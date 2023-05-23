@@ -20,8 +20,3 @@ services:
       REDIS_PASSWORD: {{ app_redis_password }}
     ports:
       - "6379:6379"
-  client:
-    image: {{ app_monitoring_client }}
-    container_name: monitoring-client
-    depends_on:
-      - app
